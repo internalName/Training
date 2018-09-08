@@ -8,7 +8,7 @@ namespace Lesson_015
 {
     internal interface IWorker
     {
-        void Read();
+        void Add();
         void Write();
         void Change();
     }

@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2C85CB0B-82A8-4B24-868F-A4012942D5E6}</ProjectGuid>
+    <ProjectGuid>{B861F5FF-04B4-4884-ADA9-B0C7E3FA6412}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Lesson_015</RootNamespace>
-    <AssemblyName>Lesson_015</AssemblyName>
+    <RootNamespace>ConsoleApp1</RootNamespace>
+    <AssemblyName>ConsoleApp1</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -42,13 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IWorker.cs" />
-    <Compile Include="ListWorker.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StartMenu.cs" />
-    <Compile Include="Worker.cs" />
-    <Compile Include="WorkPos.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

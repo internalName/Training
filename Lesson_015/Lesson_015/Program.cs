@@ -10,6 +10,7 @@ namespace Lesson_015
     {
         static void Main(string[] args)
         {
+            new StartMenu();
         }
     }
 }
