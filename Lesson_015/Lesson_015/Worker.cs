@@ -7,56 +7,89 @@ using System.Threading.Tasks;
 namespace Lesson_015
 {
 
-    internal struct Worker:IWorker
+    internal struct Worker
     {
-        private string lName, name, fName;
-        //private WorkPos workPos;
+        private enum EPosition
+        {
+            Trainer,Doctor,Engineer,Driver,Dancer
+        };
+
+        private string lName, name, fName, position;
+
         private int date;
 
-        //public Worker(string lName,string name,string fName,WorkPos workPos)
-        //{
-        //    this.lName = lName;
-        //    this.name = name;
-        //    this.fName = fName;
-        //    this.workPos = workPos;
-        //    date = DateTime.Today.Year;
-        //}
+        private ListWorkers<Worker> listWorkers;
 
-
-
-        public string LName
+        private string LName
         {
             get { return name; }
+            set { lName = value; }
         }
 
-        public string Name
+        private string Name
         {
-            get { return lName;} 
+            get { return lName;}
+            set { name = value; }
         }
 
-        public string FName
+        private string FName
         {
             get { return fName;}
+            set { fName = value; }
         }
 
-        //public WorkPos WorkPos
-        //{
-        //    get { return workPos; }
-        //}
-
-        public int Date
+        private int Date
         {
             get { return date; }
+            set { date = value; }
         }
+
+        private string Position
+        {
+            get { return position; }
+            set { position = value; }
+        } 
 
         public void Add()
-        {
-            Console.WriteLine();
+        { 
+
+            Console.Write($"Фамилия: " );
+
+            FName = Console.ReadLine();
+            Console.Write($"Имя: ");
+
+            Name = Console.ReadLine();
+            Console.Write($"Отчество: ");
+
+            LName = Console.ReadLine();
+
+            Console.WriteLine($"Выберите профессию: ");
+
+            int count = 1;
+
+            foreach (EPosition pos in (EPosition[])Enum.GetValues(typeof(EPosition)))
+            {
+                Console.WriteLine($"{count++}. {pos}");
+            }
+
+            count = 0;
+
+            int value = int.Parse(Console.ReadLine())-1;
+
+            foreach (EPosition pos in (EPosition[])Enum.GetValues(typeof(EPosition)))
+            {
+
+                if (count == value) Position = pos.ToString();
+
+                count++;
+            }
+
+            Date = DateTime.Now.Year;
         }
 
-        public void Write()
+        public void Read()
         {
-       //     Console.WriteLine($"Фамилия: {lName}\nИмя: {name}\nДолжность: {workPos}\nДата: {date}");
+           
         }
 
         public void Change()

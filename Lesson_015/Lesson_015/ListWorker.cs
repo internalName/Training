@@ -36,6 +36,19 @@ namespace Lesson_015
             }
         }
 
+        public void Add(params Worker[] workers)
+        {
+
+            if (workers.Length != 0)
+            {
+
+                for (int i = 0; i < workers.Length; i++)
+                {
+                    list.Add(workers[i]);
+                }
+            }
+        }
+
         private void SortList()
         {
 

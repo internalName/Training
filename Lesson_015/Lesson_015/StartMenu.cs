@@ -9,10 +9,14 @@ namespace Lesson_015
 {
     internal sealed class StartMenu
     {
+        private Worker worker;
         private int check;
+        private ListWorkers<Worker> listWorkers;
 
         public StartMenu()
         {
+            listWorkers=new ListWorkers<Worker>();
+
             Presentation();
         }
 
@@ -36,6 +40,9 @@ namespace Lesson_015
                 {
                     Console.Write($"1) Добавить сотрудника\n2) Вывести список сотрудников\n3) Выход\n Введите число: ");
                     Check = int.Parse(Console.ReadLine());
+
+                    if(check==3) Environment.Exit(0);
+
                     break;
                 }
 
@@ -49,18 +56,19 @@ namespace Lesson_015
 
             } while (true);
 
-            switch (check)
+            worker=new Worker();
+
+            if (check == 1)
             {
-                case 1:
-                    Console.WriteLine("its 1");
-                    break;
-                case 2:
-                    Console.WriteLine("its 2");
-                    break;
-                case 3:
-                    Console.WriteLine("its 3");
-                    break;
+                worker.Add();
+                listWorkers.Add(worker);
             }
+          
+            else if (check == 2)
+            {
+                worker.Read();
+            }
+            
             Console.WriteLine();
             Console.ReadLine();
         }

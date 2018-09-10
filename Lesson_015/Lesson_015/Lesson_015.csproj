@@ -42,13 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IWorker.cs" />
     <Compile Include="ListWorker.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StartMenu.cs" />
     <Compile Include="Worker.cs" />
-    <Compile Include="WorkPos.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
