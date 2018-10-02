@@ -1,0 +1,19 @@
+﻿// Decompiled with JetBrains decompiler
+// Type: System.Deployment.Internal.Isolation.Manifest.CMS_ASSEMBLY_REFERENCE_FLAG
+// Assembly: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+// MVID: 38C94DDE-2C5E-44AC-BCDB-DDA2D9F231CC
+// Assembly location: C:\Windows\Microsoft.NET\Framework\v4.0.30319\mscorlib.dll
+
+namespace System.Deployment.Internal.Isolation.Manifest
+{
+  internal enum CMS_ASSEMBLY_REFERENCE_FLAG
+  {
+    CMS_ASSEMBLY_REFERENCE_FLAG_OPTIONAL = 1,
+    CMS_ASSEMBLY_REFERENCE_FLAG_VISIBLE = 2,
+    CMS_ASSEMBLY_REFERENCE_FLAG_FOLLOW = 4,
+    CMS_ASSEMBLY_REFERENCE_FLAG_IS_PLATFORM = 8,
+    CMS_ASSEMBLY_REFERENCE_FLAG_CULTURE_WILDCARDED = 16, // 0x00000010
+    CMS_ASSEMBLY_REFERENCE_FLAG_PROCESSOR_ARCHITECTURE_WILDCARDED = 32, // 0x00000020
+    CMS_ASSEMBLY_REFERENCE_FLAG_PREREQUISITE = 128, // 0x00000080
+  }
+}

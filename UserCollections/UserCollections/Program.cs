@@ -12,9 +12,6 @@ namespace UserCollections
         {
             var calendar=new TheCalendar();
 
-            var val1 = "hello";
-            var val2 = "hello";
-
             Console.WriteLine();
 
             
