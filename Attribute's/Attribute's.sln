@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2010
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccessLevelAttribute", "AccessLevelAttribute\AccessLevelAttribute.csproj", "{036C25EF-70A2-4600-AB97-C3241DE1C77D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{036C25EF-70A2-4600-AB97-C3241DE1C77D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{036C25EF-70A2-4600-AB97-C3241DE1C77D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{036C25EF-70A2-4600-AB97-C3241DE1C77D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{036C25EF-70A2-4600-AB97-C3241DE1C77D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {98D3A496-1217-4313-AB11-19CE50ABBBC0}
+	EndGlobalSection
+EndGlobal

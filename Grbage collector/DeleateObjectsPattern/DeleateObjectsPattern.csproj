@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CC4F659B-4AE2-4A39-A077-7EB756280C83}</ProjectGuid>
+    <ProjectGuid>{771B2972-52B3-43E8-8856-91D5DA89BF57}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Reflexio</RootNamespace>
-    <AssemblyName>Reflexio</AssemblyName>
+    <RootNamespace>DeleateObjectsPattern</RootNamespace>
+    <AssemblyName>DeleateObjectsPattern</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -32,9 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AccessLevelAttribute">
-      <HintPath>..\..\Attribute's\AccessLevelAttribute\bin\Release\AccessLevelAttribute.exe</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -45,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Overflowing.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
