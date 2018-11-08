@@ -12,6 +12,8 @@ namespace NotWorldOfTanks.View
     public sealed class AreaView
    {
        private Area _area = default(Area);
+       private Wall _wall = default(Wall);
+       private Wall[][] _walls = default(Wall[][]);
 
        public Size AreaSize => new Size(_area.Height,_area.Width);
 
@@ -22,6 +24,7 @@ namespace NotWorldOfTanks.View
 
        public Size SetScale(Size formSize,Size gameArea)
        {
+
            if (_area.Height > formSize.Height - 100 ||
                _area.Width > formSize.Width - 100)
            {
@@ -29,7 +32,7 @@ namespace NotWorldOfTanks.View
            }
            if (_area.Height < 210 || _area.Width < 210) gameArea = new Size(500, 500);
 
-            if (Math.Ceiling((double)gameArea.Height / 30) > gameArea.Height / 30)
+            if ((Math.Ceiling((double)gameArea.Height / 30) > gameArea.Height / 30)||(Math.Ceiling((double)gameArea.Width / 30) > gameArea.Width / 30))
            {
                _area=new Area(gameArea.Height/30*30, gameArea.Width/30*30);
                return AreaSize;

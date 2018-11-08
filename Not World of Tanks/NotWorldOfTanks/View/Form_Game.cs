@@ -15,6 +15,7 @@ namespace NotWorldOfTanks
     public partial class Form1 : Form
     {
         private AreaView _area = default(AreaView);
+        private WallView _wallView = default(WallView);
         private Size _size = default(Size);
         private Point _targetPosition = default(Point);
         public Bitmap tank = default(Bitmap);
@@ -45,10 +46,10 @@ namespace NotWorldOfTanks
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            _targetPosition.X = pictureBox1.Height / 2;// Испраить!!
+            _targetPosition.X = 30;//pictureBox1.Height/ 2;// Испраить!!
             _targetPosition.Y = pictureBox1.Width - 60;
-            tank = Resource_NWoT.Tank;
-            wall = Resource_NWoT.wall;
+
+            _wallView=new WallView(_area.AreaSize.Height,_area.AreaSize.Width);
 
         }
 
@@ -62,27 +63,39 @@ namespace NotWorldOfTanks
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (_targetPosition.Y > 30) _targetPosition.Y -= 1;
-            //if (_tankView._targetPosition.Y > 30) _tankView._targetPosition.Y = -1;
             Refresh();
         }
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
-            g.DrawImage(tank, new Rectangle(_targetPosition.X, _targetPosition.Y, 30, 30));
 
-            for (int height = 0, width = 0;
-                (height < pictureBox1.Width) && (width < pictureBox1.Height);
-                height += 30, width += 30)
+            for (int i = 0,j=0; i < 5; i++,j+=30)
             {
-                g.DrawImage(wall, new Rectangle(height, 0, 30, 30));
-                g.DrawImage(wall, new Rectangle(0, width, 30, 30));
-                g.DrawImage(wall, new Rectangle(height, pictureBox1.Width - 30, 30, 30));
-                g.DrawImage(wall, new Rectangle(pictureBox1.Height - 30, width, 30, 30));
-
+                g.DrawImage(Resource_NWoT.Tank, new Rectangle(_targetPosition.X+j, _targetPosition.Y, 30, 30));
             }
 
-            //_tankView.Draw(e, pictureBox1);
+            for (int height = 0; height < _area.AreaSize.Width; height += 30)
+            {
+                g.DrawImage(Resource_NWoT.wall, new Rectangle(height, 0, 30, 30));
+            }
+
+            for (int width = 0;width < _area.AreaSize.Height; width += 30)
+            {
+                g.DrawImage(Resource_NWoT.wall, new Rectangle(0, width, 30, 30));
+            }
+
+            for (int height = 0; height < _area.AreaSize.Width; height += 30)
+            {
+                g.DrawImage(Resource_NWoT.wall, new Rectangle(height, _area.AreaSize.Height - 30, 30, 30));
+            }
+
+            for (int width = 0; width < _area.AreaSize.Height; width += 30)
+            {
+                g.DrawImage(Resource_NWoT.wall, new Rectangle(_area.AreaSize.Width - 30, width, 30, 30));
+            }
+
+
         }
 
         private void btnNewGame_Click(object sender, EventArgs e)
