@@ -8,6 +8,7 @@ namespace MyWordsCollections
         private string[] en_arr=new string[8];
         private string[] ru_arr=new string[8];
         private string[] keys=new string[8];
+        private string @string = default (string);
 
         private static int counter = 0;
 

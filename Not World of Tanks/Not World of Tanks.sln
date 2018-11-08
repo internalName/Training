@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningPoetry", "LearningPoetry\LearningPoetry.csproj", "{4777D6D2-ABE3-4834-9817-A0074AEB4E36}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotWorldOfTanks", "NotWorldOfTanks\NotWorldOfTanks.csproj", "{09747544-E4B4-44ED-8069-173C952E7166}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4777D6D2-ABE3-4834-9817-A0074AEB4E36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4777D6D2-ABE3-4834-9817-A0074AEB4E36}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4777D6D2-ABE3-4834-9817-A0074AEB4E36}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4777D6D2-ABE3-4834-9817-A0074AEB4E36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09747544-E4B4-44ED-8069-173C952E7166}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09747544-E4B4-44ED-8069-173C952E7166}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09747544-E4B4-44ED-8069-173C952E7166}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09747544-E4B4-44ED-8069-173C952E7166}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {3AE3888E-3EEF-4BFB-A3D8-57B4B419A0C1}
+		SolutionGuid = {E76691E7-13D2-4C26-9CD2-8659F9108DA8}
 	EndGlobalSection
 EndGlobal
