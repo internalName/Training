@@ -20,17 +20,24 @@ namespace NotWorldOfTanks.View
             _area=new Area(size.Height,size.Width);
         }
 
-       public Size SetScale(Size formSize)
+       public Size SetScale(Size formSize,Size gameArea)
        {
-           if (_area.Height > formSize.Height - 100 || _area.Width > formSize.Width - 100) ResetSize();
-
-           if (Math.Ceiling((double)_area.Height / 30) > _area.Height / 30)
+           if (_area.Height > formSize.Height - 100 ||
+               _area.Width > formSize.Width - 100)
            {
-               _area=new Area(_area.Height/30*30, _area.Width/30*30);
+               ResetSize();
+           }
+           if (_area.Height < 210 || _area.Width < 210) gameArea = new Size(500, 500);
+
+            if (Math.Ceiling((double)gameArea.Height / 30) > gameArea.Height / 30)
+           {
+               _area=new Area(gameArea.Height/30*30, gameArea.Width/30*30);
                return AreaSize;
            }
 
-           return AreaSize;
+           _area = new Area(gameArea.Height, gameArea.Width);
+
+            return AreaSize;
        }
 
        public void ResetSize()

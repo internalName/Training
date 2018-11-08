@@ -24,16 +24,16 @@ namespace NotWorldOfTanks
 
         public Form1(AreaView area)
         {
-           
+            _area = area;
+
             InitializeComponent();
 
+            this.Size = new Size(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width / 2, System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height / 2);
             pictureBox1.Left = area.LocationArea(ClientSize.Width, pictureBox1.Width);
             pictureBox1.Top = area.LocationArea(ClientSize.Height, pictureBox1.Height);
 
-            this.Size = new Size(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width / 2, System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height / 2);
-            _area = area;
-
-            this.pictureBox1.Size = _area.SetScale(this.Size);
+            this.pictureBox1.Size = _area.AreaSize;
+            this.pictureBox1.Size = _area.SetScale(this.Size,pictureBox1.Size);
 
             this.MinimumSize = new Size(pictureBox1.Width + 150, pictureBox1.Height + 150);
 
@@ -43,44 +43,9 @@ namespace NotWorldOfTanks
             UpdateStyles();
         }
 
-        public Form1(Size size, int numOfTanks,int numOfBonuses,int speed)
-        {
-            _tankView=new TankView();
-            InitializeComponent();
-
-            this.pictureBox1.Size = size;
-
-            if (size.Height > this.Size.Height - 100 || size.Width > this.Size.Width - 100) size = new Size(500, 500);
-
-            if (Math.Ceiling((double)pictureBox1.Height / 30) > pictureBox1.Height / 30)
-            {
-                size.Height = pictureBox1.Height / 30 * 30;
-                size.Width = pictureBox1.Width / 30 * 30;
-                this.pictureBox1.Size = new Size(pictureBox1.Height / 30 * 30, pictureBox1.Width / 30 * 30);//size;
-            }
-
-
-            // _size = size;
-
-            this.Size = new Size(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width / 2, System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height / 2);
-            pictureBox1.Left = ClientSize.Width / 2 - pictureBox1.Width / 2;
-            pictureBox1.Top = ClientSize.Height / 2 - pictureBox1.Height / 2;
-            //SizeSet();
-            // Получить проверенные/измененные размеры из AreaView
-            this.MinimumSize = new Size(pictureBox1.Width+150,pictureBox1.Height+150);
-
-            SetStyle(ControlStyles.OptimizedDoubleBuffer |
-                     ControlStyles.AllPaintingInWmPaint |
-                     ControlStyles.UserPaint, true);
-            UpdateStyles();
-
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
-            //_tankView=new TankView();
-            //_tankView._targetPosition=new Point(pictureBox1.Height / 2, pictureBox1.Width - 60);
-            _targetPosition.X = pictureBox1.Height / 2;
+            _targetPosition.X = pictureBox1.Height / 2;// Испраить!!
             _targetPosition.Y = pictureBox1.Width - 60;
             tank = Resource_NWoT.Tank;
             wall = Resource_NWoT.wall;

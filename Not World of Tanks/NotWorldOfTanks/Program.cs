@@ -17,10 +17,11 @@ namespace NotWorldOfTanks
         [STAThread]
         static void Main()
         {
-            AreaView area=new AreaView(new Size(500,500),numOfTanks: 5, numOfBonuses: 5, speed: 8);
+            AreaView area=new AreaView(new Size(210,210),numOfTanks: 5, numOfBonuses: 5, speed: 8);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1(area));//new Form1(size:new System.Drawing.Size(500, 500),numOfTanks:5,numOfBonuses:5,speed:8));
+            Application.Run(new Form1(area));
+
         }
     }
 }
