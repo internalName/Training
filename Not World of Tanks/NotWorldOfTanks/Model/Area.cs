@@ -38,8 +38,10 @@ namespace NotWorldOfTanks.Model
 
         public Area(int height,int width)
        {
-           _height = height;
-           _width = width;
-       }
+
+               _height = height;
+               _width = width;
+
+        }
    }
 }

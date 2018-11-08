@@ -18,9 +18,20 @@ namespace NotWorldOfTanks.View
         public AreaView(Size size, int numOfTanks, int numOfBonuses, int speed)
         {
             _area=new Area(size.Height,size.Width);
-
         }
 
+       public Size SetScale(Size formSize)
+       {
+           if (_area.Height > formSize.Height - 100 || _area.Width > formSize.Width - 100) ResetSize();
+
+           if (Math.Ceiling((double)_area.Height / 30) > _area.Height / 30)
+           {
+               _area=new Area(_area.Height/30*30, _area.Width/30*30);
+               return AreaSize;
+           }
+
+           return AreaSize;
+       }
 
        public void ResetSize()
        {

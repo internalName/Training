@@ -24,46 +24,44 @@ namespace NotWorldOfTanks
 
         public Form1(AreaView area)
         {
-            _area = area;
+           
             InitializeComponent();
 
             pictureBox1.Left = area.LocationArea(ClientSize.Width, pictureBox1.Width);
             pictureBox1.Top = area.LocationArea(ClientSize.Height, pictureBox1.Height);
 
             this.Size = new Size(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width / 2, System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height / 2);
+            _area = area;
 
-            this.pictureBox1.Size = area.AreaSize;
-            if (area.AreaSize.Height > this.Size.Height - 100 || area.AreaSize.Width > this.Size.Width - 100) area.ResetSize();
-            
-            if (Math.Ceiling((double)pictureBox1.Height / 30) > pictureBox1.Height / 30)
-            {
-                //area.AreaSize.Height = pictureBox1.Height / 30 * 30;
-                //area.AreaSize.Width = pictureBox1.Width / 30 * 30;
-                this.pictureBox1.Size = area.AreaSize;
-            }
+            this.pictureBox1.Size = _area.SetScale(this.Size);
 
+            this.MinimumSize = new Size(pictureBox1.Width + 150, pictureBox1.Height + 150);
 
+            SetStyle(ControlStyles.OptimizedDoubleBuffer |
+                     ControlStyles.AllPaintingInWmPaint |
+                     ControlStyles.UserPaint, true);
+            UpdateStyles();
         }
 
         public Form1(Size size, int numOfTanks,int numOfBonuses,int speed)
         {
             _tankView=new TankView();
-
             InitializeComponent();
 
             this.pictureBox1.Size = size;
+
             if (size.Height > this.Size.Height - 100 || size.Width > this.Size.Width - 100) size = new Size(500, 500);
-            
+
             if (Math.Ceiling((double)pictureBox1.Height / 30) > pictureBox1.Height / 30)
             {
-                //size.Height = pictureBox1.Height / 30 * 30;
-                //size.Width = pictureBox1.Width / 30 * 30;
+                size.Height = pictureBox1.Height / 30 * 30;
+                size.Width = pictureBox1.Width / 30 * 30;
                 this.pictureBox1.Size = new Size(pictureBox1.Height / 30 * 30, pictureBox1.Width / 30 * 30);//size;
             }
 
 
-           // _size = size;
-            
+            // _size = size;
+
             this.Size = new Size(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width / 2, System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height / 2);
             pictureBox1.Left = ClientSize.Width / 2 - pictureBox1.Width / 2;
             pictureBox1.Top = ClientSize.Height / 2 - pictureBox1.Height / 2;
@@ -76,18 +74,6 @@ namespace NotWorldOfTanks
                      ControlStyles.UserPaint, true);
             UpdateStyles();
 
-        }
-
-        private void SizeSet()
-        {
-            if (_size.Height > this.Size.Height - 100 || _size.Width > this.Size.Width - 100) _size = new Size(500, 500);
-            this.pictureBox1.Size = _size;
-            if (Math.Ceiling((double)pictureBox1.Height / 30) > pictureBox1.Height / 30)
-            {
-                _size.Height = pictureBox1.Height / 30 * 30;
-                _size.Width = pictureBox1.Width / 30 * 30;
-                this.pictureBox1.Size = _size;
-            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
