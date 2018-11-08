@@ -22,6 +22,8 @@ namespace NotWorldOfTanks
         public Bitmap wall = default(Bitmap);
         private TankView _tankView = default(TankView);
         public PictureBox picBox = default(PictureBox);
+        private List<Point> points = default(List<Point>);
+        private Point tankPoint = default(Point);
 
         public Form1(AreaView area)
         {
@@ -50,7 +52,8 @@ namespace NotWorldOfTanks
             _targetPosition.Y = pictureBox1.Width - 60;
 
             _wallView=new WallView(_area.AreaSize.Height,_area.AreaSize.Width);
-
+            SetWall();
+            tankPoint = TankStart();
         }
 
         protected override void OnResize(EventArgs e)
@@ -62,7 +65,9 @@ namespace NotWorldOfTanks
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (_targetPosition.Y > 30) _targetPosition.Y -= 1;
+            //if (_targetPosition.Y > 30) _targetPosition.Y -= 1;
+            if (tankPoint.Y > 30&& !points.Any(n => n.Equals(new Point(tankPoint.X, tankPoint.Y - 30))))
+            tankPoint.Y -= 1;
             Refresh();
         }
 
@@ -70,10 +75,10 @@ namespace NotWorldOfTanks
         {
             Graphics g = e.Graphics;
 
-            for (int i = 0,j=0; i < 5; i++,j+=30)
-            {
-                g.DrawImage(Resource_NWoT.Tank, new Rectangle(_targetPosition.X+j, _targetPosition.Y, 30, 30));
-            }
+            //for (int i = 0,j=0; i < 5; i++,j+=30)
+            //{
+            //    g.DrawImage(Resource_NWoT.Tank, new Rectangle(_targetPosition.X+j, _targetPosition.Y, 30, 30));
+            //}
 
             for (int height = 0; height < _area.AreaSize.Width; height += 30)
             {
@@ -95,7 +100,63 @@ namespace NotWorldOfTanks
                 g.DrawImage(Resource_NWoT.wall, new Rectangle(_area.AreaSize.Width - 30, width, 30, 30));
             }
 
+            foreach (var point in points)
+            {
+                g.DrawImage(Resource_NWoT.wall, new Rectangle(point.X, point.Y, 30, 30));
+            }
 
+            //g.DrawImage(Resource_NWoT.Tank, new Rectangle(_targetPosition.X , _targetPosition.Y, 30, 30));
+
+            g.DrawImage(Resource_NWoT.Tank, new Rectangle(tankPoint.X, tankPoint.Y, 30, 30));
+        }
+
+        private void SetWall()
+        {
+            Random r_h = new Random();
+
+            int count = _area.AreaSize.Width / 10-10;
+            points =new List<Point>();
+            int a = 0, b = 0;
+            for (int i = 0; i < count; i++)
+            {
+                a = r_h.Next(30, _area.AreaSize.Height - 30) / 30 * 30;
+                b = r_h.Next(30, _area.AreaSize.Width - 30) / 30 * 30;
+
+                if (!points.Any(n => new Point(a, b).Equals(n)))
+                {
+                    points.Add(new Point(a, b));
+                    
+                }
+                else i -= 1;
+
+            }
+        }
+
+        private Point TankStart()
+        {
+            Point point = default(Point);
+
+            Random r_h = new Random();
+
+            int count = _area.AreaSize.Width*_area.AreaSize.Height-_area.AreaSize.Width / 10-(_area.AreaSize.Width*2+_area.AreaSize.Height*2)+4;
+
+            int a = 0, b = 0;
+            for (int i = 0; i < count; i++)
+            {
+                a = r_h.Next(30, _area.AreaSize.Height - 30) / 30 * 30;
+                b = r_h.Next(30, _area.AreaSize.Width - 30) / 30 * 30;
+
+                if (!points.Any(n => new Point(a, b).Equals(n)))
+                {
+                    point=new Point(a,b);
+                    break;
+
+                }
+                else i -= 1;
+
+            }
+
+            return point;
         }
 
         private void btnNewGame_Click(object sender, EventArgs e)
