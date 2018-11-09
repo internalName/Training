@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using NotWorldOfTanks.Model;
+using Point = System.Drawing.Point;
 
 namespace NotWorldOfTanks.View
 {
@@ -12,48 +14,36 @@ namespace NotWorldOfTanks.View
     {
         public Bitmap wall = default(Bitmap);
         public Bitmap tank = default(Bitmap);
-        public Point _targetPosition = default(Point);
-
-        //public Point PointPosition
-        //{
-        //    get => _targetPosition;
-        //    set => _targetPosition = value;
-        //}
-
-        //public int X
-        //{
-        //    get => _targetPosition.X;
-        //    set => _targetPosition.X = value;
-        //}
-
-        //public int Y
-        //{
-        //    get => _targetPosition.Y;
-        //    set => _targetPosition.Y = value;
-        //}
-
+        public List<Tank> _tank = default(List<Tank>);
+        private Tank _t;
         public TankView()
         {
             wall = Resource_NWoT.wall;
             tank = Resource_NWoT.Tank;
-            
+            _tank=new List<Tank>();
+
+        }
+
+        public direction Direction(Tank tank)
+        {
+            _t = tank;
+
+            return _t.Direction;
         }
 
         public void Draw(PaintEventArgs e, PictureBox pictureBox1)
         {
-            Graphics g = e.Graphics;
-            g.DrawImage(tank, new Rectangle(_targetPosition.X, _targetPosition.Y, 30, 30));
 
-            for (int height = 0, width = 0;
-                (height < pictureBox1.Width) && (width < pictureBox1.Height);
-                height += 30, width += 30)
-            {
-                g.DrawImage(wall, new Rectangle(height, 0, 30, 30));
-                g.DrawImage(wall, new Rectangle(0, width, 30, 30));
-                g.DrawImage(wall, new Rectangle(height, pictureBox1.Width - 30, 30, 30));
-                g.DrawImage(wall, new Rectangle(pictureBox1.Height - 30, width, 30, 30));
+        }
 
-            }
+        public void AddTank(int x,int y)
+        {
+            _tank.Add(new Tank(x,y));
+        }
+
+        public void Move()
+        {
+
         }
     }
 }

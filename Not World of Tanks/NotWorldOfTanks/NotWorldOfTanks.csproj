@@ -49,6 +49,7 @@
     <Compile Include="Controller\WallController.cs" />
     <Compile Include="Model\AbstractTank.cs" />
     <Compile Include="Model\Area.cs" />
+    <Compile Include="Model\direction.cs" />
     <Compile Include="Model\Wall.cs" />
     <Compile Include="Model\Bullet.cs" />
     <Compile Include="Model\Kolobok.cs" />
