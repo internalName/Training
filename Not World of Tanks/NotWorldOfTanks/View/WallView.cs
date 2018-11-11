@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NotWorldOfTanks.Model;
+using Point = NotWorldOfTanks.Model.Point;
 
 namespace NotWorldOfTanks.View
 {
@@ -11,6 +13,8 @@ namespace NotWorldOfTanks.View
     {
         private Wall[][] _wall = default(Wall[][]);
         private Point[][] _location = default(Point[][]);
+
+        public Bitmap WallImage => Resource_NWoT.wall;
 
         public WallView(int height,int width)
         {

@@ -24,6 +24,8 @@ namespace NotWorldOfTanks
         private List<Point> points = default(List<Point>);
         private Point tankPoint = default(Point);
         private direction _direction = default(direction);
+        private bool teleport = false;
+        private RotateFlipType _startPos = default(RotateFlipType);
 
 
         public Form1(AreaView area)
@@ -54,6 +56,7 @@ namespace NotWorldOfTanks
             _wallView = new WallView(_area.AreaSize.Height, _area.AreaSize.Width);
             SetWall();
             tankPoint = TankStart(1);
+
         }
 
         protected override void OnResize(EventArgs e)
@@ -69,7 +72,7 @@ namespace NotWorldOfTanks
             bool crashed = false;
 
             int dir = r.Next(1, 5);
-            int res = r.Next(0, 2);
+            
 
 
             for (int i = 0; i < _tankView._tank.Count; i++)
@@ -79,29 +82,54 @@ namespace NotWorldOfTanks
                         !points.Any(n => n.Equals(new Point(_tankView._tank[i].X, _tankView._tank[i].Y - 30))))
                     {
                         _tankView._tank[i].Y -= 1;
-                        if (res == 1)
+                        if (teleport)
                         {
                             if (dir == 1) break;
-                            else if (dir == 2) _tankView._tank[i].Direction = direction.Left;
-                            else if (dir == 3) _tankView._tank[i].Direction = direction.Down;
-                            else if (dir == 4) _tankView._tank[i].Direction = direction.Right;
+                            else if (dir == 2)
+                            {
+                                _tankView._tank[i].Direction = direction.Left;
+                            _tankView.tank = _tankView.Flip(_tankView._tank[i].Direction);
+                        }
+                            else if (dir == 3)
+                            {
+                                _tankView._tank[i].Direction = direction.Down;
+                            _tankView.tank = _tankView.Flip(_tankView._tank[i].Direction);
+                        }
+                            else if (dir == 4)
+                            {
+                                _tankView._tank[i].Direction = direction.Right;
+                            _tankView.tank = _tankView.Flip(_tankView._tank[i].Direction);
+                        }
                         }
                         break;
 
                 }
 
 
-
                 if ((_tankView._tank[i].Direction is direction.Down) && _tankView._tank[i].Y < _area.AreaSize.Width - 30 &&
                     !points.Any(n => n.Equals(new Point(_tankView._tank[i].X, _tankView._tank[i].Y + 30))))
                 {
                     _tankView._tank[i].Y += 1;
-                    if (res == 1)
+                    if (teleport)
                     {
                         if (dir == 1) break;
-                        else if (dir == 2) _tankView._tank[i].Direction = direction.Left;
-                        else if (dir == 3) _tankView._tank[i].Direction = direction.Up;
-                        else if (dir == 4) _tankView._tank[i].Direction = direction.Right;
+                        else if (dir == 2)
+                        {
+                            _tankView._tank[i].Direction = direction.Left;
+                            _tankView.tank = _tankView.Flip(_tankView._tank[i].Direction);
+                        }
+                        else if (dir == 3)
+                        {
+                            _tankView._tank[i].Direction = direction.Up;
+                            _tankView.tank = _tankView.Flip(_tankView._tank[i].Direction);
+                        }
+                        else if (dir == 4)
+                        {
+                            _tankView._tank[i].Direction = direction.Right;
+                            _tankView.tank = _tankView.Flip(_tankView._tank[i].Direction);
+                        }
+                        teleport = false;
+                       
                     }
                     break;
                 }
@@ -111,12 +139,25 @@ namespace NotWorldOfTanks
                     !points.Any(n => n.Equals(new Point(_tankView._tank[i].X - 30, _tankView._tank[i].Y))))
                 {
                     _tankView._tank[i].X -= 1;
-                    if (res == 1)
+                    if (teleport)
                     {
                         if (dir == 1) break;
-                        else if (dir == 2) _tankView._tank[i].Direction = direction.Down;
-                        else if (dir == 3) _tankView._tank[i].Direction = direction.Up;
-                        else if (dir == 4) _tankView._tank[i].Direction = direction.Right;
+                        else if (dir == 2)
+                        {
+                            _tankView._tank[i].Direction = direction.Down;
+                            _tankView.tank=_tankView.Flip(_tankView._tank[i].Direction);
+                        }
+                        else if (dir == 3)
+                        {
+                            _tankView._tank[i].Direction = direction.Up;
+                            _tankView.tank = _tankView.Flip(_tankView._tank[i].Direction);
+                        }
+                        else if (dir == 4)
+                        {
+                            _tankView._tank[i].Direction = direction.Right;
+                            _tankView.tank = _tankView.Flip(_tankView._tank[i].Direction);
+                        }
+                        teleport = false;
                     }
                     break;
                 }
@@ -125,12 +166,25 @@ namespace NotWorldOfTanks
                     !points.Any(n => n.Equals(new Point(_tankView._tank[i].X + 30, _tankView._tank[i].Y))))
                 {
                     _tankView._tank[i].X += 1;
-                    if (res == 1)
+                    if (teleport)
                     {
                         if (dir == 1) break;
-                        else if (dir == 2) _tankView._tank[i].Direction = direction.Left;
-                        else if (dir == 3) _tankView._tank[i].Direction = direction.Up;
-                        else if (dir == 4) _tankView._tank[i].Direction = direction.Down;
+                        else if (dir == 2)
+                        {
+                            _tankView._tank[i].Direction = direction.Left;
+                            _tankView.tank = _tankView.Flip(_tankView._tank[i].Direction);
+                        }
+                        else if (dir == 3)
+                        {
+                            _tankView._tank[i].Direction = direction.Up;
+                            _tankView.tank = _tankView.Flip(_tankView._tank[i].Direction);
+                        }
+                        else if (dir == 4)
+                        {
+                            _tankView._tank[i].Direction = direction.Down;
+                            _tankView.tank = _tankView.Flip(_tankView._tank[i].Direction);
+                        }
+                        teleport = false;
                     }
                     break;
                 }
@@ -145,32 +199,32 @@ namespace NotWorldOfTanks
 
             for (int height = 0; height < _area.AreaSize.Width; height += 30)
             {
-                g.DrawImage(Resource_NWoT.wall, new Rectangle(height, 0, 30, 30));
+                g.DrawImage(_wallView.WallImage, new Rectangle(height, 0, 30, 30));
             }
 
             for (int width = 0; width < _area.AreaSize.Height; width += 30)
             {
-                g.DrawImage(Resource_NWoT.wall, new Rectangle(0, width, 30, 30));
+                g.DrawImage(_wallView.WallImage, new Rectangle(0, width, 30, 30));
             }
 
             for (int height = 0; height < _area.AreaSize.Width; height += 30)
             {
-                g.DrawImage(Resource_NWoT.wall, new Rectangle(height, _area.AreaSize.Height - 30, 30, 30));
+                g.DrawImage(_wallView.WallImage, new Rectangle(height, _area.AreaSize.Height - 30, 30, 30));
             }
 
             for (int width = 0; width < _area.AreaSize.Height; width += 30)
             {
-                g.DrawImage(Resource_NWoT.wall, new Rectangle(_area.AreaSize.Width - 30, width, 30, 30));
+                g.DrawImage(_wallView.WallImage, new Rectangle(_area.AreaSize.Width - 30, width, 30, 30));
             }
 
             foreach (var point in points)
             {
-                g.DrawImage(Resource_NWoT.wall, new Rectangle(point.X, point.Y, 30, 30));
+                g.DrawImage(_wallView.WallImage, new Rectangle(point.X, point.Y, 30, 30));
             }
 ;
             for (int i = 0; i < _tankView._tank.Count; i++)
             {
-                g.DrawImage(Resource_NWoT.Tank, new Rectangle(_tankView._tank[i].X, _tankView._tank[i].Y, 30, 30));
+                g.DrawImage(_tankView.tank, new Rectangle(_tankView._tank[i].X, _tankView._tank[i].Y, 30, 30));
 
             }
         }
@@ -233,6 +287,13 @@ namespace NotWorldOfTanks
         private void btnNewGame_Click(object sender, EventArgs e)
         {
             timer1.Enabled = !timer1.Enabled;
+            timer2.Enabled = !timer2.Enabled;
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            Random r=new Random();
+            if(r.Next(0,2)==1) teleport = true;
 
         }
     }
