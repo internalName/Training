@@ -18,10 +18,9 @@ namespace NotWorldOfTanks
 
     public partial class Form1 : Form
     {
-        private AreaView _area = default(AreaView);
+        private AreaView _areaView = default(AreaView);
         private WallView _wallView = default(WallView);
         private TankView _tankView = default(TankView);
-        private List<Point> points = default(List<Point>);
         private Point tankPoint = default(Point);
         private direction _direction = default(direction);
         private bool teleport = false;
@@ -30,7 +29,7 @@ namespace NotWorldOfTanks
 
         public Form1(AreaView area)
         {
-            _area = area;
+            _areaView = area;
 
             InitializeComponent();
 
@@ -39,8 +38,8 @@ namespace NotWorldOfTanks
             pictureBox1.Left = area.LocationArea(ClientSize.Width, pictureBox1.Width);
             pictureBox1.Top = area.LocationArea(ClientSize.Height, pictureBox1.Height);
 
-            this.pictureBox1.Size = _area.AreaSize;
-            this.pictureBox1.Size = _area.SetScale(this.Size, pictureBox1.Size);
+            this.pictureBox1.Size = _areaView.AreaSize;
+            this.pictureBox1.Size = _areaView.SetScale(this.Size, pictureBox1.Size);
 
             this.MinimumSize = new Size(pictureBox1.Width + 150, pictureBox1.Height + 150);
 
@@ -52,9 +51,8 @@ namespace NotWorldOfTanks
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            _tankView = new TankView();
-            _wallView = new WallView(_area.AreaSize.Height, _area.AreaSize.Width);
-            SetWall();
+            _tankView = new TankView(_areaView.TankNumber);
+            _wallView = new WallView(_areaView.AreaSize.Height, _areaView.AreaSize.Width);
             tankPoint = TankStart(1);
 
         }
@@ -78,9 +76,8 @@ namespace NotWorldOfTanks
             for (int i = 0; i < _tankView._tank.Count; i++)
             {
 
-                    if ((_tankView._tank[i].Direction is direction.Up) && _tankView._tank[i].Y > 30 &&
-                        !points.Any(n => n.Equals(new Point(_tankView._tank[i].X, _tankView._tank[i].Y - 30))))
-                    {
+                    if ((_tankView._tank[i].Direction is direction.Up))// && _tankView._tank[i].Y > 30 && !_wallView.FieldLocation.Any(n => n.Equals(new Point(_tankView._tank[i].X, _tankView._tank[i].Y - 30))))
+                    {   
                         _tankView._tank[i].Y -= 1;
                         if (teleport)
                         {
@@ -106,8 +103,7 @@ namespace NotWorldOfTanks
                 }
 
 
-                if ((_tankView._tank[i].Direction is direction.Down) && _tankView._tank[i].Y < _area.AreaSize.Width - 30 &&
-                    !points.Any(n => n.Equals(new Point(_tankView._tank[i].X, _tankView._tank[i].Y + 30))))
+                if ((_tankView._tank[i].Direction is direction.Down))// && _tankView._tank[i].Y < _area.AreaSize.Width - 30 &&!_wallView.FieldLocation.Any(n => n.Equals(new Point(_tankView._tank[i].X, _tankView._tank[i].Y + 30))))
                 {
                     _tankView._tank[i].Y += 1;
                     if (teleport)
@@ -135,10 +131,10 @@ namespace NotWorldOfTanks
                 }
 
 
-                if ((_tankView._tank[i].Direction is direction.Left) && _tankView._tank[i].X > 30 &&
-                    !points.Any(n => n.Equals(new Point(_tankView._tank[i].X - 30, _tankView._tank[i].Y))))
+                if ((_tankView._tank[i].Direction is direction.Left) )//&& _tankView._tank[i].X > 30 && !_wallView.FieldLocation.Any(n => n.Equals(new Point(_tankView._tank[i].X - 30, _tankView._tank[i].Y))))
                 {
                     _tankView._tank[i].X -= 1;
+
                     if (teleport)
                     {
                         if (dir == 1) break;
@@ -162,10 +158,10 @@ namespace NotWorldOfTanks
                     break;
                 }
 
-                if ((_tankView._tank[i].Direction is direction.Right) && _tankView._tank[i].X < _area.AreaSize.Height - 30 &&
-                    !points.Any(n => n.Equals(new Point(_tankView._tank[i].X + 30, _tankView._tank[i].Y))))
+                if ((_tankView._tank[i].Direction is direction.Right))// && _tankView._tank[i].X < _area.AreaSize.Height - 30 && !_wallView.FieldLocation.Any(n => n.Equals(new Point(_tankView._tank[i].X + 30, _tankView._tank[i].Y))))
                 {
                     _tankView._tank[i].X += 1;
+
                     if (teleport)
                     {
                         if (dir == 1) break;
@@ -197,58 +193,69 @@ namespace NotWorldOfTanks
         {
             Graphics g = e.Graphics;
 
-            for (int height = 0; height < _area.AreaSize.Width; height += 30)
+            foreach (var point in _wallView.FieldLocation)
             {
-                g.DrawImage(_wallView.WallImage, new Rectangle(height, 0, 30, 30));
-            }
-
-            for (int width = 0; width < _area.AreaSize.Height; width += 30)
-            {
-                g.DrawImage(_wallView.WallImage, new Rectangle(0, width, 30, 30));
-            }
-
-            for (int height = 0; height < _area.AreaSize.Width; height += 30)
-            {
-                g.DrawImage(_wallView.WallImage, new Rectangle(height, _area.AreaSize.Height - 30, 30, 30));
-            }
-
-            for (int width = 0; width < _area.AreaSize.Height; width += 30)
-            {
-                g.DrawImage(_wallView.WallImage, new Rectangle(_area.AreaSize.Width - 30, width, 30, 30));
-            }
-
-            foreach (var point in points)
-            {
-                g.DrawImage(_wallView.WallImage, new Rectangle(point.X, point.Y, 30, 30));
+                g.DrawImage(_wallView.WallImage, new Rectangle(point.StartPosition.X, point.StartPosition.Y, 30, 30));
             }
 ;
             for (int i = 0; i < _tankView._tank.Count; i++)
             {
                 g.DrawImage(_tankView.tank, new Rectangle(_tankView._tank[i].X, _tankView._tank[i].Y, 30, 30));
-
             }
         }
 
-        private void SetWall()
+        private bool MeetAboutTheWall(Tank tank)
         {
-            Random r_h = new Random();
+            bool result = false;
 
-            int count = _area.AreaSize.Width / 10 - 10;
-            points = new List<Point>();
-            int a = 0, b = 0;
-            for (int i = 0; i < count; i++)
-            {
-                a = r_h.Next(30, _area.AreaSize.Height - 30) / 30 * 30;
-                b = r_h.Next(30, _area.AreaSize.Width - 30) / 30 * 30;
+            //if (tank.Direction == direction.Down)
+            //{
+            //    if (points.Any(n => n.Y >= tank.Y + 30))
+            //    {
+            //        for (int i = 0; i < 30; i++)
+            //        {
+            //            if (points.Any(n => n.X <= tank.X - i) || points.Any(n => n.X >= tank.X + i))
+            //            {
+            //                result = true;
+            //                break;
+            //            }
+            //        }
+            //    }
+            //}
 
-                if (!points.Any(n => new Point(a, b).Equals(n)))
-                {
-                    points.Add(new Point(a, b));
+            //if (tank.Direction == direction.Up)
+            //{
+            //    if (points.Any(n => n.Y >= tank.Y - 30))
+            //    {
+            //        for (int i = 0; i < 30; i++)
+            //        {
+            //            if (points.Any(n => n.X <= tank.X - i) || points.Any(n => n.X >= tank.X + i))
+            //            {
+            //                result = true;
+            //                break;
+            //            }
+            //        }
+            //    }
+            //}
 
-                }
-                else i -= 1;
+            //if (tank.Direction == direction.Left)
+            //{
+            //    if (points.Any(n => n.X >= tank.X - 30))
+            //    {
+            //        for (int i = 0; i < 30; i++)
+            //        {
+            //            if (points.Any(n => n.Y <= tank.Y - i) || points.Any(n => n.Y >= tank.Y + i))
+            //            {
+            //                result = true;
+            //                break;
+            //            }
+            //        }
+            //    }
+            //}
 
-            }
+
+
+            return result;
         }
 
         private Point TankStart(int numTank)
@@ -257,18 +264,18 @@ namespace NotWorldOfTanks
 
             Random r_h = new Random();
 
-            int count = _area.AreaSize.Width * _area.AreaSize.Height - _area.AreaSize.Width / 10 -
-                        (_area.AreaSize.Width * 2 + _area.AreaSize.Height * 2) + 4;
+            int count = _areaView.AreaSize.Width * _areaView.AreaSize.Height - _areaView.AreaSize.Width / 10 -
+                        (_areaView.AreaSize.Width * 2 + _areaView.AreaSize.Height * 2) + 4;
 
             int a = 0, b = 0;
             for (int j = 0; j < numTank; j++)
             {
                 for (int i = 0; i < count; i++)
                 {
-                    a = r_h.Next(30, _area.AreaSize.Height - 30) / 30 * 30;
-                    b = r_h.Next(30, _area.AreaSize.Width - 30) / 30 * 30;
+                    a = r_h.Next(30, _areaView.AreaSize.Height - 30) / 30 * 30;
+                    b = r_h.Next(30, _areaView.AreaSize.Width - 30) / 30 * 30;
 
-                    if (!points.Any(n => new Point(a, b).Equals(n)))
+                    if (!_wallView.FieldLocation.Any(n => new Point(a, b).Equals(n)))
                     {
                         point = new Point(a, b);
                         _tankView.AddTank(point.X, point.Y);

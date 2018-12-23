@@ -9,32 +9,32 @@ namespace NotWorldOfTanks.Model
 {
     internal sealed class Tank: AbstractTank
     {
-        public System.Drawing.Point _targetPosition = default(System.Drawing.Point);
+        public System.Drawing.Point _PointPosition = default(System.Drawing.Point);
 
         public System.Drawing.Point PointPosition
         {
-            get => _targetPosition;
-            set => _targetPosition = value;
+            get => _PointPosition;
+            set => _PointPosition = value;
         }
 
         public int X
         {
-            get => _targetPosition.X;
-            set => _targetPosition.X = value;
+            get => _PointPosition.X;
+            set => _PointPosition.X = value;
         }
 
         public int Y
         {
-            get => _targetPosition.Y;
-            set => _targetPosition.Y = value;
+            get => _PointPosition.Y;
+            set => _PointPosition.Y = value;
         }
 
         public direction Direction { get; set; }
 
         public Tank(int x,int y)
         {
-            _targetPosition.X = x;
-            _targetPosition.Y = y;
+            _PointPosition.X = x;
+            _PointPosition.Y = y;
 
             Direction = direction.Up;
         }
@@ -42,7 +42,8 @@ namespace NotWorldOfTanks.Model
 
         public override void Move()
         {
-
+            if (this.Direction == direction.Up) this.Y -= 1;
+            //if(this.Direction==direction.Down)
         }
 
         public override void Turn()

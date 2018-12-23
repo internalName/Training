@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NotWorldOfTanks.Model
 {
-   internal sealed class Area
+   internal sealed class Area:GameObject
    {
        private int _height = default(int),
                    _width=default (int);

@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace NotWorldOfTanks.Model
 {
-    internal class Bullet:GameObject
+    class GameObject
     {
-
     }
 }

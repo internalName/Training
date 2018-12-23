@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NotWorldOfTanks.Model
 {
-    internal abstract class AbstractTank
+    internal abstract class AbstractTank:GameObject
     {
         private int Health { get; set; }
 
